@@ -2,7 +2,7 @@ services:
   - type: web
     name: openclaw
     runtime: docker
-    plan: starter
+    plan: standard
     healthCheckPath: /health
     envVars:
       - key: PORT
@@ -19,3 +19,4 @@ services:
       name: openclaw-data
       mountPath: /data
       sizeGB: 1
+    dockerCommand: sh -c "mkdir -p /data/.openclaw /home/node/.openclaw && echo '{\"gateway\":{\"mode\":\"local\",\"controlUi\":{\"dangerouslyDisableDeviceAuth\":true}}}' | tee /data/.openclaw/openclaw.json /home/node/.openclaw/openclaw.json && node dist/index.js gateway --bind lan --port 8080"
